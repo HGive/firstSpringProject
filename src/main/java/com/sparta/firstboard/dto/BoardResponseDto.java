@@ -11,7 +11,6 @@ public class BoardResponseDto {
     private String username;
     private String contents;
     private String title;
-    private int password;
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
 
@@ -20,7 +19,6 @@ public class BoardResponseDto {
         this.username = board.getUsername();
         this.contents = board.getContents();
         this.title = board.getTitle();
-        this.password = board.getPassword();
         this.createdAt= board.getCreatedAt();
         this.modifiedAt = board.getModifiedAt();
     }
