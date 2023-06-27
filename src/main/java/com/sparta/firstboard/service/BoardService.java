@@ -51,9 +51,14 @@ public class BoardService {
         return id;
     }
 
-    public Long deleteBoard(Long id) {
+    public Long deleteBoard(Long id , BoardRequestDto requestDto) {
         Board board = findBoard(id);
-        boardRepository.delete(board);
+        if(board.getPassword()==requestDto.getPassword()){
+            boardRepository.delete(board);
+        }else{
+//            throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
+            System.out.println("비밀번호가 일치하지 않습니다.");
+        };
         return id;
     }
 
