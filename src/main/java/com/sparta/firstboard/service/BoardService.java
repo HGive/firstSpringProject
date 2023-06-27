@@ -27,7 +27,7 @@ public class BoardService {
         Board board = new Board(requestDto);
         Board saveBoard = boardRepository.save(board);
 
-        BoardResponseDto boardResponseDto = new BoardResponseDto(board);
+        BoardResponseDto boardResponseDto = new BoardResponseDto(saveBoard);
         return boardResponseDto;
     }
 
