@@ -27,8 +27,7 @@ public class BoardService {
         Board board = new Board(requestDto);
         Board saveBoard = boardRepository.save(board);
 
-        BoardResponseDto boardResponseDto = new BoardResponseDto(saveBoard);
-        return boardResponseDto;
+        return new BoardResponseDto(saveBoard);
     }
 
     public List<BoardResponseDto> getBoards() {
@@ -50,8 +49,8 @@ public class BoardService {
 //            System.out.println("비밀번호가 일치하지 않습니다.");
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "비밀번호가 틀렸습니다.");
         }
-        BoardResponseDto boardResponseDto = new BoardResponseDto(board);
-        return boardResponseDto;
+
+        return new BoardResponseDto(board);
     }
 
     public String deleteBoard(Long id , BoardRequestDto requestDto) {

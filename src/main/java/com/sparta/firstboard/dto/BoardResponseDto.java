@@ -1,11 +1,13 @@
 package com.sparta.firstboard.dto;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.sparta.firstboard.entity.Board;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
 
 @Getter
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class BoardResponseDto {
     private Long id;
     private String username;
