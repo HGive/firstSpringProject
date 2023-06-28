@@ -41,7 +41,7 @@ public class BoardService {
     }
 
     @Transactional
-    public Long updateBoard(Long id, BoardRequestDto requestDto) {
+    public BoardResponseDto updateBoard(Long id, BoardRequestDto requestDto) {
         Board board = findBoard(id);
         if(checkPassword(board.getPassword(), requestDto.getPassword())){
             board.update(requestDto);
@@ -50,10 +50,11 @@ public class BoardService {
 //            System.out.println("비밀번호가 일치하지 않습니다.");
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "비밀번호가 틀렸습니다.");
         }
-        return id;
+        BoardResponseDto boardResponseDto = new BoardResponseDto(board);
+        return boardResponseDto;
     }
 
-    public Long deleteBoard(Long id , BoardRequestDto requestDto) {
+    public String deleteBoard(Long id , BoardRequestDto requestDto) {
         Board board = findBoard(id);
         if(board.getPassword()==requestDto.getPassword()){
             boardRepository.delete(board);
@@ -62,7 +63,7 @@ public class BoardService {
 //            System.out.println("비밀번호가 일치하지 않습니다.");
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "비밀번호가 틀렸습니다.");
         }
-        return id;
+        return "Success";
     }
 
 

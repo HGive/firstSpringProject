@@ -22,8 +22,7 @@ public class Board extends Timestamped{
     private String contents;
     @Column(name = "title", nullable = false, length = 300)
     private String title;
-
-    @Column(name = "password" , precision = 4)
+    @Column(name = "password" )
     private int password;
 
     public Board(BoardRequestDto requestDto) {

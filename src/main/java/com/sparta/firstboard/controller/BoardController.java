@@ -38,12 +38,12 @@ public class BoardController {
     }
 
     @PutMapping("/board/{id}")
-    public Long updateBoard(@PathVariable Long id, @RequestBody BoardRequestDto requestDto) {
+    public BoardResponseDto updateBoard(@PathVariable Long id, @RequestBody BoardRequestDto requestDto) {
         return boardService.updateBoard(id, requestDto);
     }
 
     @DeleteMapping("/board/{id}")
-    public Long deleteBoard(@PathVariable Long id, @RequestBody BoardRequestDto requestDto) {
+    public String deleteBoard(@PathVariable Long id, @RequestBody BoardRequestDto requestDto) {
         return boardService.deleteBoard(id , requestDto);
     }
 
