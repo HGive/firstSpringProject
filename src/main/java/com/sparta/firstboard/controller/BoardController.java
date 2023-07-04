@@ -24,7 +24,7 @@ public class BoardController {
     //게시글 게시
     @PostMapping("/board")
     public BoardResponseDto createBoard(@RequestBody BoardRequestDto requestDto ,
-                                        @CookieValue(JwtUtil.AUTHORIZATION_HEADER) String tokenValue ) {
+                                        @RequestHeader(JwtUtil.AUTHORIZATION_HEADER) String tokenValue ) {
         return boardService.createBoard(requestDto, tokenValue);
     }
 
@@ -42,16 +42,14 @@ public class BoardController {
 
     @PutMapping("/board/{id}")
     public BoardResponseDto updateBoard(@PathVariable Long id, @RequestBody BoardRequestDto requestDto ,
-                                        @CookieValue(JwtUtil.AUTHORIZATION_HEADER) String tokenValue) {
+                                        @RequestHeader(JwtUtil.AUTHORIZATION_HEADER) String tokenValue) {
         return boardService.updateBoard(id, requestDto , tokenValue );
     }
 
     @DeleteMapping("/board/{id}")
     public String deleteBoard(@PathVariable Long id,
-                              @CookieValue(JwtUtil.AUTHORIZATION_HEADER) String tokenValue,
+                              @RequestHeader(JwtUtil.AUTHORIZATION_HEADER) String tokenValue,
                               HttpServletResponse res) {
         return boardService.deleteBoard(id, tokenValue ,res);
     }
-
-
 }

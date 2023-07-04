@@ -6,7 +6,6 @@ import com.sparta.firstboard.entity.User;
 import com.sparta.firstboard.jwt.JwtUtil;
 import com.sparta.firstboard.repository.UserRepository;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.validation.Valid;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 

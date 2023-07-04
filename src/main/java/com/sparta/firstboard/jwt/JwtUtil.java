@@ -3,7 +3,6 @@ package com.sparta.firstboard.jwt;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 import jakarta.annotation.PostConstruct;
-import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
@@ -13,12 +12,10 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
 import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.security.Key;
 import java.util.Base64;
 import java.util.Date;
-import java.util.Enumeration;
 
 @Component
 public class JwtUtil {   //이런 식으로 만든다는 예시임. 상황에 맞게 나중에 스스로 만들어.
@@ -61,12 +58,12 @@ public class JwtUtil {   //이런 식으로 만든다는 예시임. 상황에 �
     public void addJwtToCookie(String token, HttpServletResponse res) {
         try {
             token = URLEncoder.encode(token, "utf-8").replaceAll("\\+", "%20"); // Cookie Value 에는 공백이 불가능해서 encoding 진행
-
-            Cookie cookie = new Cookie(AUTHORIZATION_HEADER, token); // Name-Value
-            cookie.setPath("/");
-
-            // Response 객체에 Cookie 추가
-            res.addCookie(cookie);
+//
+//            Cookie cookie = new Cookie(AUTHORIZATION_HEADER, token); // Name-Value
+//            cookie.setPath("/");
+//
+//            // Response 객체에 Cookie 추가
+//            res.addCookie(cookie);
             res.addHeader(AUTHORIZATION_HEADER,token);   //쿠키에 담으면 토큰이 유지가 되는데, 리스폰스 헤더에 넣으면 토큰이 유지가 되나??
         } catch (UnsupportedEncodingException e) {
             logger.error(e.getMessage());
@@ -104,30 +101,35 @@ public class JwtUtil {   //이런 식으로 만든다는 예시임. 상황에 �
     }
 
     public String getTokenFromRequest(HttpServletRequest req) {
-        Cookie[] cookies = req.getCookies();
-        Enumeration<String> headers = req.getHeaderNames();
-        if(cookies != null) {
-            for (Cookie cookie : cookies) {
-                if (cookie.getName().equals(AUTHORIZATION_HEADER)) {
-                    try {
-                        return URLDecoder.decode(cookie.getValue(), "UTF-8"); // Encode 되어 넘어간 Value 다시 Decode
-                    } catch (UnsupportedEncodingException e) {
-                        return null;
-                    }
-                }
-            }
-        }else{
-            while(headers.hasMoreElements()){
-                if (headers.nextElement().equals(AUTHORIZATION_HEADER)) {
-                    try {
-                        return URLDecoder.decode(req.getHeader(headers.nextElement()), "UTF-8"); // Encode 되어 넘어간 Value 다시 Decode
-                    } catch (UnsupportedEncodingException e) {
-                        return null;
-                    }
-                }
-            }
-        }
-        return null;
+        System.out.println(req.getHeader(AUTHORIZATION_HEADER));
+        return req.getHeader(AUTHORIZATION_HEADER);
+
+//        Cookie[] cookies = req.getCookies();
+//        Enumeration<String> headers = req.getHeaderNames();
+//        if(cookies != null) {
+//            for (Cookie cookie : cookies) {
+//                if (cookie.getName().equals(AUTHORIZATION_HEADER)) {
+//                    try {
+//                        return URLDecoder.decode(cookie.getValue(), "UTF-8"); // Encode 되어 넘어간 Value 다시 Decode
+//                    } catch (UnsupportedEncodingException e) {
+//                        return null;
+//                    }
+//                }
+//            }
+//        }else{
+//            while(headers.hasMoreElements()){
+//                if (headers.nextElement().equals(AUTHORIZATION_HEADER)) {
+//
+//                    try {
+//                        System.out.println(URLDecoder.decode(req.getHeader(headers.nextElement()), "UTF-8"));
+//                        return URLDecoder.decode(req.getHeader(headers.nextElement()), "UTF-8"); // Encode 되어 넘어간 Value 다시 Decode
+//                    } catch (UnsupportedEncodingException e) {
+//                        return null;
+//                    }
+//                }
+//            }
+
+
     }
 }
 
