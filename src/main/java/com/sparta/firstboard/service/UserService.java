@@ -45,13 +45,11 @@ public class UserService {
     public void login(LoginRequestDto requestDto, HttpServletResponse res) { //필터에서함
         String username = requestDto.getUsername();
         String password = requestDto.getPassword();
-        System.out.println("-----사용자 확인-----");
         //사용자 확인
         User user = userRepository.findByUsername(username).orElseThrow(
                 ()-> new IllegalArgumentException("등록된 사용자가 없습니다.")
                 );
 
-        System.out.println("-----비밀번호 확인-----");
         //비밀번호 확인
         if(!passwordEncoder.matches(password, user.getPassword())){
             throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");

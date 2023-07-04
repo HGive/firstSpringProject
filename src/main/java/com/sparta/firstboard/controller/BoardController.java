@@ -5,6 +5,7 @@ import com.sparta.firstboard.dto.BoardResponseDto;
 import com.sparta.firstboard.entity.Board;
 import com.sparta.firstboard.jwt.JwtUtil;
 import com.sparta.firstboard.service.BoardService;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,7 +23,8 @@ public class BoardController {
 
     //게시글 게시
     @PostMapping("/board")
-    public BoardResponseDto createBoard(@RequestBody BoardRequestDto requestDto , @CookieValue(JwtUtil.AUTHORIZATION_HEADER) String tokenValue ) {
+    public BoardResponseDto createBoard(@RequestBody BoardRequestDto requestDto ,
+                                        @CookieValue(JwtUtil.AUTHORIZATION_HEADER) String tokenValue ) {
         return boardService.createBoard(requestDto, tokenValue);
     }
 
@@ -39,13 +41,16 @@ public class BoardController {
     }
 
     @PutMapping("/board/{id}")
-    public BoardResponseDto updateBoard(@PathVariable Long id, @RequestBody BoardRequestDto requestDto ,@CookieValue(JwtUtil.AUTHORIZATION_HEADER) String tokenValue) {
+    public BoardResponseDto updateBoard(@PathVariable Long id, @RequestBody BoardRequestDto requestDto ,
+                                        @CookieValue(JwtUtil.AUTHORIZATION_HEADER) String tokenValue) {
         return boardService.updateBoard(id, requestDto , tokenValue );
     }
 
     @DeleteMapping("/board/{id}")
-    public String deleteBoard(@PathVariable Long id, @CookieValue(JwtUtil.AUTHORIZATION_HEADER) String tokenValue) {
-        return boardService.deleteBoard(id, tokenValue);
+    public String deleteBoard(@PathVariable Long id,
+                              @CookieValue(JwtUtil.AUTHORIZATION_HEADER) String tokenValue,
+                              HttpServletResponse res) {
+        return boardService.deleteBoard(id, tokenValue ,res);
     }
 
 

@@ -7,6 +7,7 @@ import com.sparta.firstboard.jwt.JwtUtil;
 import com.sparta.firstboard.repository.BoardRepository;
 import io.jsonwebtoken.Claims;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -67,7 +68,7 @@ public class BoardService {
         return new BoardResponseDto(board);
     }
 
-    public String deleteBoard(Long id , String tokenValue) {
+    public String deleteBoard(Long id , String tokenValue , HttpServletResponse res) {
         Board board = findBoard(id);
         if(checkValidToken(request)&&board.getUsername().equals(getUsernameFromtoken(tokenValue))){ //board.getPassword()==requestDto.getPassword()
             boardRepository.delete(board);
@@ -76,7 +77,7 @@ public class BoardService {
 //            System.out.println("비밀번호가 일치하지 않습니다.");
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "유효하지 않은 토큰");
         }
-        return "Success";
+        return "Success , code : " + res.getStatus();
     }
 
 

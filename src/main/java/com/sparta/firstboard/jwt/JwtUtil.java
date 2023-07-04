@@ -18,6 +18,7 @@ import java.net.URLEncoder;
 import java.security.Key;
 import java.util.Base64;
 import java.util.Date;
+import java.util.Enumeration;
 
 @Component
 public class JwtUtil {   //이런 식으로 만든다는 예시임. 상황에 맞게 나중에 스스로 만들어.
@@ -66,7 +67,7 @@ public class JwtUtil {   //이런 식으로 만든다는 예시임. 상황에 �
 
             // Response 객체에 Cookie 추가
             res.addCookie(cookie);
-//          res.addHeader(AUTHORIZATION_HEADER,token);   //쿠키에 담으면 토큰이 유지가 되는데, 리스폰스 헤더에 넣으면 토큰이 유지가 되나??
+            res.addHeader(AUTHORIZATION_HEADER,token);   //쿠키에 담으면 토큰이 유지가 되는데, 리스폰스 헤더에 넣으면 토큰이 유지가 되나??
         } catch (UnsupportedEncodingException e) {
             logger.error(e.getMessage());
         }
@@ -104,11 +105,22 @@ public class JwtUtil {   //이런 식으로 만든다는 예시임. 상황에 �
 
     public String getTokenFromRequest(HttpServletRequest req) {
         Cookie[] cookies = req.getCookies();
+        Enumeration<String> headers = req.getHeaderNames();
         if(cookies != null) {
             for (Cookie cookie : cookies) {
                 if (cookie.getName().equals(AUTHORIZATION_HEADER)) {
                     try {
                         return URLDecoder.decode(cookie.getValue(), "UTF-8"); // Encode 되어 넘어간 Value 다시 Decode
+                    } catch (UnsupportedEncodingException e) {
+                        return null;
+                    }
+                }
+            }
+        }else{
+            while(headers.hasMoreElements()){
+                if (headers.nextElement().equals(AUTHORIZATION_HEADER)) {
+                    try {
+                        return URLDecoder.decode(req.getHeader(headers.nextElement()), "UTF-8"); // Encode 되어 넘어간 Value 다시 Decode
                     } catch (UnsupportedEncodingException e) {
                         return null;
                     }
