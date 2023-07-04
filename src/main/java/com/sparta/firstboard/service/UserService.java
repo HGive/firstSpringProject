@@ -51,6 +51,6 @@ public class UserService {
 
         //JWT 생성 및 쿠키에 저장 후 Response 객체에 추가
         String token = jwtUtil.createToken(user.getUsername());
-        jwtUtil.addJwtToCookie(token,res);
+        jwtUtil.addJwtToHeader(token,res);
     }
 }

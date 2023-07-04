@@ -26,7 +26,7 @@ public class BoardService {
     private final  HttpServletRequest request;
 
     private final JwtUtil jwtUtil;
-    
+
 
     public BoardResponseDto createBoard(BoardRequestDto requestDto , String tokenValue) {
         if(checkValidToken(request)){
@@ -37,7 +37,6 @@ public class BoardService {
             System.out.println("유효하지 않은 토큰");
             return null;
         }
-
     }
 
     public List<BoardResponseDto> getBoards() {
@@ -59,7 +58,6 @@ public class BoardService {
 //            System.out.println("비밀번호가 일치하지 않습니다.");
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "유효하지 않은 토큰.");
         }
-
         return new BoardResponseDto(board);
     }
 
