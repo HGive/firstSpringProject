@@ -6,20 +6,18 @@ import com.sparta.firstboard.entity.Board;
 import com.sparta.firstboard.jwt.JwtUtil;
 import com.sparta.firstboard.service.BoardService;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/api")
 public class BoardController {
 
     private final BoardService boardService;
-
-    public BoardController(BoardService boardService) {
-        this.boardService = boardService;
-    }
 
     //게시글 게시
     @PostMapping("/board")

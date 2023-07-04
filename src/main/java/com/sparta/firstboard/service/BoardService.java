@@ -8,6 +8,7 @@ import com.sparta.firstboard.repository.BoardRepository;
 import io.jsonwebtoken.Claims;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,6 +18,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class BoardService {
 
     private final BoardRepository boardRepository;
@@ -24,14 +26,7 @@ public class BoardService {
     private final  HttpServletRequest request;
 
     private final JwtUtil jwtUtil;
-
-    public BoardService(BoardRepository boardRepository, HttpServletRequest request, JwtUtil jwtUtil) {
-//        BoardRepository boardRepository = context.getBean(BoardRepository.class);
-        this.boardRepository = boardRepository;
-        this.request = request;
-        this.jwtUtil = jwtUtil;
-    }
-
+    
 
     public BoardResponseDto createBoard(BoardRequestDto requestDto , String tokenValue) {
         if(checkValidToken(request)){

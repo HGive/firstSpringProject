@@ -19,15 +19,11 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 @Slf4j
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/api")
 public class UserController {
 
     private final UserService userService;
-
-    public UserController(UserService userService) {
-        this.userService = userService;
-    }
-
 
     @PostMapping("/user/signup")
     public SignupResponseDto signup(@RequestBody @Valid SignupRequestDto requestDto, BindingResult bindingResult , HttpServletResponse res) {
