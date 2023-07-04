@@ -7,6 +7,7 @@ import com.sparta.firstboard.dto.SignupResponseDto;
 import com.sparta.firstboard.service.UserService;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -26,6 +27,7 @@ public class UserController {
     public UserController(UserService userService) {
         this.userService = userService;
     }
+
 
     @PostMapping("/user/signup")
     public SignupResponseDto signup(@RequestBody @Valid SignupRequestDto requestDto, BindingResult bindingResult , HttpServletResponse res) {

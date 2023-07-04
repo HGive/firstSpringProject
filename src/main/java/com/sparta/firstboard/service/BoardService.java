@@ -80,10 +80,9 @@ public class BoardService {
         return "Success , code : " + res.getStatus();
     }
 
-
-    private boolean checkPassword(int a, int b){
-        return a==b;
-    }
+//    private boolean checkPassword(int a, int b){
+//        return a==b;
+//    }
 
     private boolean checkValidToken(HttpServletRequest request){
         String tokenValue = jwtUtil.getTokenFromRequest(request);
